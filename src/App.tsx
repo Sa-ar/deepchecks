@@ -3,7 +3,7 @@ import { SingleValue } from "react-select";
 
 import { useParse } from "./hooks/useParse";
 
-import Select from "./components/Select";
+import Select from "./adapters/Select";
 
 import "./App.css";
 
