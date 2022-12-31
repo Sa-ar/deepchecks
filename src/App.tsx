@@ -1,21 +1,15 @@
 import { useState } from "react";
-import { SingleValue } from "react-select";
 
 import { useParse } from "./hooks/useParse";
 
-import Select from "./adapters/Select";
+import Select, { SelectValue } from "./adapters/Select";
 
 import "./App.css";
 
 function App() {
   const { isLoading, columns, errors, isErrors, headers } =
     useParse("/house_prices.csv");
-  const [currentColumn, setCurrentColumn] = useState<
-    SingleValue<{
-      value: string;
-      label: string;
-    }>
-  >(null);
+  const [currentColumn, setCurrentColumn] = useState<SelectValue>(null);
 
   return (
     <div className="App">
@@ -26,14 +20,17 @@ function App() {
       )}
       {!isErrors && isLoading && "Loading..."}
       <Select
-      value={currentColumn}
+        value={currentColumn}
         options={headers
           .filter((header) => header.toLowerCase() !== "id")
           .map((header) => ({ value: header.toLowerCase(), label: header }))}
         onChange={(newColumn) => setCurrentColumn(newColumn)}
       />
       <pre style={{ width: "calc(100vw - 60px)", textAlign: "left" }}>
-        {!isErrors && !isLoading && currentColumn?.label && JSON.stringify(columns[currentColumn.label], null, 2)}
+        {!isErrors &&
+          !isLoading &&
+          currentColumn?.label &&
+          JSON.stringify(columns[currentColumn.label], null, 2)}
       </pre>
     </div>
   );

@@ -1,4 +1,10 @@
-import Select, { GroupBase, Props } from 'react-select';
+import Select, { GroupBase, Props } from "react-select";
+import { SingleValue } from "react-select";
+
+export type SelectValue = SingleValue<{
+  value: string;
+  label: string;
+}>;
 
 function CustomSelect<
   Option,
