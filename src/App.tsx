@@ -1,9 +1,21 @@
+import { useState } from "react";
+import { SingleValue } from "react-select";
+
 import { useParse } from "./hooks/useParse";
 
-import './App.css';
+import Select from "./components/Select";
+
+import "./App.css";
 
 function App() {
-  const { isLoading, columns, errors, isErrors, headers } = useParse("/house_prices.csv");
+  const { isLoading, columns, errors, isErrors, headers } =
+    useParse("/house_prices.csv");
+  const [currentColumn, setCurrentColumn] = useState<
+    SingleValue<{
+      value: string;
+      label: string;
+    }>
+  >(null);
 
   return (
     <div className="App">
@@ -13,9 +25,15 @@ function App() {
         </div>
       )}
       {!isErrors && isLoading && "Loading..."}
-      <pre style={{ width: "100%", textAlign: "left" }}>
-        {JSON.stringify(headers)}
-        {!isErrors && !isLoading && JSON.stringify(columns, null, 2)}
+      <Select
+      value={currentColumn}
+        options={headers
+          .filter((header) => header.toLowerCase() !== "id")
+          .map((header) => ({ value: header.toLowerCase(), label: header }))}
+        onChange={(newColumn) => setCurrentColumn(newColumn)}
+      />
+      <pre style={{ width: "calc(100vw - 60px)", textAlign: "left" }}>
+        {!isErrors && !isLoading && currentColumn?.label && JSON.stringify(columns[currentColumn.label], null, 2)}
       </pre>
     </div>
   );
