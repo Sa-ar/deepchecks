@@ -5,7 +5,6 @@ import {
   BarElement,
   PointElement,
   LineElement,
-  Legend,
   Tooltip,
   LineController,
   BarController,

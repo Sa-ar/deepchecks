@@ -10,7 +10,7 @@ import {
 type DataChartProps = {
   header: string;
   values: unknown[];
-  stepPercentage?: number;
+  stepPercentage: number;
 };
 
 const chartFunctionsMap = {
@@ -52,7 +52,7 @@ const chartFunctionsMap = {
   },
 };
 
-function DataChart({ header, values, stepPercentage = 10 }: DataChartProps) {
+function DataChart({ header, values, stepPercentage }: DataChartProps) {
   const columnValueType = useMemo(() => getColumnValuesType(values), [values]);
   const labels = useMemo(
     () => chartFunctionsMap[columnValueType].getLabels(values, stepPercentage),
