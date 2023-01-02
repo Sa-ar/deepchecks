@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 export function useParse(url: string) {
-  const [columns, setColumns] = useState<{[key: string]: unknown}>({});
+  const [columns, setColumns] = useState<{[key: string]: unknown[]}>({});
   const [rows, setRows] = useState<unknown[]>([])
   const [headers, setHeaders] = useState<string[]>([])
   const [errors, setErrors] = useState<Array<ParseError | unknown>>([]);

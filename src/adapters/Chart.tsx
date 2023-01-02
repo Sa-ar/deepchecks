@@ -10,9 +10,8 @@ import {
   LineController,
   BarController,
   ChartData,
-  ChartType,
-} from 'chart.js';
-import { Chart } from 'react-chartjs-2';
+} from "chart.js";
+import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
   LinearScale,
@@ -20,21 +19,32 @@ ChartJS.register(
   BarElement,
   PointElement,
   LineElement,
-  Legend,
   Tooltip,
   LineController,
   BarController
 );
 
 type ChartProps = {
-  type: ChartType;
-  data: ChartData;
-}
+  type: "line" | "bar";
+  data: number[];
+  labels: string[];
+  header: string;
+};
 
-function CustomChart({ type, data }: ChartProps) {
-  return (
-    <Chart type={type} data={data} />
-  );
+function CustomChart({ type, data, labels, header }: ChartProps) {
+  const chartData: ChartData = {
+    labels,
+    datasets: [
+      {
+        type,
+        label: header,
+        data,
+        backgroundColor: "#6610f2",
+      },
+    ],
+  };
+
+  return <Chart type={type} data={chartData} width="100%" />;
 }
 
 export default CustomChart;
