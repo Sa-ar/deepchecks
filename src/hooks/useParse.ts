@@ -6,7 +6,7 @@ export function useParse(url: string) {
   const [columns, setColumns] = useState<{[key: string]: unknown[]}>({});
   const [rows, setRows] = useState<unknown[]>([])
   const [headers, setHeaders] = useState<string[]>([])
-  const [errors, setErrors] = useState<Array<ParseError | unknown>>([]);
+  const [errors, setErrors] = useState<Array<ParseError | Error>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [meta, setMeta] = useState<ParseMeta>();
 
@@ -18,7 +18,7 @@ export function useParse(url: string) {
   } = useQuery("getCsv", async () => {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error("Could not fetch the file.");
     }
 
     return await response.text();
@@ -51,7 +51,7 @@ export function useParse(url: string) {
     } else if (isFileLoading) {
       setIsLoading(true);
     } else if (isError) {
-      setErrors([error]);
+      setErrors([error as Error]);
     }
   }, [fileData, isFileLoading, isError, error])
 

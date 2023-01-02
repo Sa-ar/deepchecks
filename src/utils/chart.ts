@@ -19,7 +19,7 @@ export function getDistributionRanges(values: number[], stepPercentage: number) 
   const distributionRanges = [];
 
   for (let i = min; i < max; i += step) {
-    distributionRanges.push({ startValue: i, endValue: i + step });
+    distributionRanges.push({ startValue: i === min ? i : i + 1, endValue: i + step });
   }
 
   return distributionRanges;

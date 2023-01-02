@@ -1,5 +1,7 @@
 import { useMemo } from "react";
+
 import Chart from "../adapters/Chart";
+
 import {
   distributionRangeToString,
   EValueType,

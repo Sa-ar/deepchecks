@@ -25,24 +25,28 @@ function ColumnData({ headers, columns }: ColumnDataProps) {
   }, [currentColumn]);
 
   return (
-    <article>
-      <Select
-        value={currentColumn}
-        options={headers
-          .filter((header) => header.toLowerCase() !== "id")
-          .map((header) => ({ value: header.toLowerCase(), label: header }))}
-        onChange={(newColumn) => setCurrentColumn(newColumn)}
-      />
-      {isNumericColumn && (
-        <label>
-          Distribution Percentage:{" "}
-          <input
-            type="number"
-            defaultValue={10}
-            onChange={(e) => setStepPercentage(Number(e.currentTarget.value))}
-          />
-        </label>
-      )}
+    <article className="w-1/2 max-h-80 p-5">
+      <form className="flex justify-between w-full mb-2 mt-2">
+        <Select
+          value={currentColumn}
+          options={headers
+            .filter((header) => header.toLowerCase() !== "id")
+            .map((header) => ({ value: header.toLowerCase(), label: header }))}
+          onChange={(newColumn) => setCurrentColumn(newColumn)}
+          className="font-medium min-h-full"
+        />
+        {isNumericColumn && (
+          <label className="flex text-sm font-medium text-gray-900 dark:text-gray-300 gap-2">
+            Distribution Percentage:
+            <input
+              type="number"
+              defaultValue={10}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => setStepPercentage(Number(e.currentTarget.value))}
+            />
+          </label>
+        )}
+      </form>
 
       {currentColumn && (
         <DataChart
