@@ -30,7 +30,6 @@ const chartFunctionsMap = {
         values as number[],
         stepPercentage
       );
-      console.log(distributionRanges);
 
       return distributionRanges.map(
         ({ startValue, endValue }) =>
