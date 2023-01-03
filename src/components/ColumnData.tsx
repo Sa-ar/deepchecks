@@ -37,7 +37,7 @@ function ColumnData({ headers, columns }: ColumnDataProps) {
         />
         {isNumericColumn && (
           <label className="flex font-medium text-gray-900 dark:text-gray-300 gap-2 items-center">
-            Amount of distribution buns:
+            Amount of distribution bins:
             <input
               type="number"
               defaultValue={10}
