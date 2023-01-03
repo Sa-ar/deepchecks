@@ -16,13 +16,9 @@ export function getMinAndMax(values: number[]) {
 export function getDistributionRanges(values: number[], binsAmount: number) {
   const [min, max] = getMinAndMax(values);
   const step = Math.floor((max - min) / binsAmount);
-  const distributionRanges = [];
+  const binsRanges = Array(binsAmount).fill("").map((_, i, { length }) => ({ startValue: min + (i * step), endValue: i === length - 1 ? max : min + ((i + 1) * step) }));
 
-  for (let i = min; i < max; i += step) {
-    distributionRanges.push({ startValue: i === min ? i : i + 1, endValue: i + step });
-  }
-
-  return distributionRanges;
+  return binsRanges;
 }
 
 export function distributionRangeToString(distributionRange: distributionRange) {
