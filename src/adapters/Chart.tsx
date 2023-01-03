@@ -43,7 +43,7 @@ function CustomChart({ type, data, labels, header }: ChartProps) {
     ],
   };
 
-  return <Chart type={type} data={chartData} options={{ aspectRatio: 2 }} />;
+  return <Chart type={type} data={chartData} options={{ aspectRatio: 2 }} className="mx-auto w-full" />;
 }
 
 export default CustomChart;

@@ -13,9 +13,9 @@ export function getMinAndMax(values: number[]) {
   return [Math.min(...values), Math.max(...values)];
 }
 
-export function getDistributionRanges(values: number[], stepPercentage: number) {
+export function getDistributionRanges(values: number[], binsAmount: number) {
   const [min, max] = getMinAndMax(values);
-  const step = Math.floor((max - min) * (stepPercentage / 100));
+  const step = Math.floor((max - min) / binsAmount);
   const distributionRanges = [];
 
   for (let i = min; i < max; i += step) {

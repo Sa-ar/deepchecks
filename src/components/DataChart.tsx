@@ -12,7 +12,7 @@ import {
 type DataChartProps = {
   header: string;
   values: unknown[];
-  stepPercentage: number;
+  binsAmount: number;
 };
 
 const chartFunctionsMap = {
@@ -27,10 +27,10 @@ const chartFunctionsMap = {
     },
   },
   [EValueType.numeric]: {
-    getData(values: unknown[], _labels: string[], stepPercentage: number) {
+    getData(values: unknown[], _labels: string[], binsAmount: number) {
       const distributionRanges = getDistributionRanges(
         values as number[],
-        stepPercentage
+        binsAmount
       );
 
       return distributionRanges.map(
@@ -43,10 +43,10 @@ const chartFunctionsMap = {
           }).length
       );
     },
-    getLabels(values: unknown[], stepPercentage: number): string[] {
+    getLabels(values: unknown[], binsAmount: number): string[] {
       const distributionRanges = getDistributionRanges(
         values as number[],
-        stepPercentage
+        binsAmount
       );
 
       return distributionRanges.map(distributionRangeToString);
@@ -54,20 +54,20 @@ const chartFunctionsMap = {
   },
 };
 
-function DataChart({ header, values, stepPercentage }: DataChartProps) {
+function DataChart({ header, values, binsAmount }: DataChartProps) {
   const columnValueType = useMemo(() => getColumnValuesType(values), [values]);
   const labels = useMemo(
-    () => chartFunctionsMap[columnValueType].getLabels(values, stepPercentage),
-    [values, stepPercentage]
+    () => chartFunctionsMap[columnValueType].getLabels(values, binsAmount),
+    [values, binsAmount]
   );
   const data = useMemo(
     () =>
       chartFunctionsMap[columnValueType].getData(
         values,
         labels,
-        stepPercentage
+        binsAmount
       ),
-    [values, labels, stepPercentage]
+    [values, labels, binsAmount]
   );
 
   return (
